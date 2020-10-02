@@ -5,7 +5,18 @@ const Actions = require('../data/helpers/actionModel');
 
 // GET request
 router.get('/', (req ,res) => {
-  Actions.get(req.params.id)
+  Actions.get(req.id)
+    .then(action => {
+      res.status(200).json(action);
+    })
+    .catch(err => {
+      res.status(500).json({ error: 'Error retrieving action' });
+    })
+})
+
+// GET request by id
+router.get('/:id', (req ,res) => {
+  Actions.get(req.id)
     .then(action => {
       if(action != 0) {
         res.status(200).json(action);
