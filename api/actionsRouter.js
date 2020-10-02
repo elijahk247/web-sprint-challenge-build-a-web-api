@@ -24,7 +24,7 @@ router.post('/', (req, res) => {
   //   res.status(401).json({ error: 'Please fill out the description of the action' });
   // }    
 
-  // handle above using middleware instead
+  // middleware to check if req.body has a description to move on to the post 
 
   Actions.insert(req.body)
     .then(action => {
@@ -48,7 +48,23 @@ router.delete('/:id', (req, res) => {
     .catch(err  => {
       res.status(500).json({ error: 'Could not remove the action' });
     })
+})
 
+//PUT request
+router.put('/:id', (req, res) => {
+  // middleware to determine if valid update 
+
+  Actions.update(req.params.id, req.body)
+    .then(action => {
+      if(action != 0) {
+        res.status(200).json({ message: 'Successfully updated' });
+      } else {
+        res.status(404).json({ message: 'Could not find action at given index' });
+      }
+    })
+    .catch(err => {
+      res.status(500).json({ error: 'Could not update the action' });
+    })
 })
 
 module.exports = router;
