@@ -71,8 +71,21 @@ Be prepared to demonstrate your understanding of this week's concepts by answeri
   - one example is validation where the request is valid before performing a crud opertation 
 
 1. The basic principles of the REST architectural style.
+
+  - some basic principles of REST style are:
+    1. client-server: separating the user interface concerns from the data storage concerns; allows user interface concerns to be more flexible and applicable to other data storages rather than specifically designing for one storage
+
+    2. stateless: requires client requests to contain all information necessary to understand the request; nothing stored on the server
+
 1. Understand and explain the use of Express Routers.
+
+  - the use of Express Router is simple: rather than having a different URL for every operation, you perform diffferent CRUD operations on the same URL
+  - Instead of adding and removing from different pages, you route the m to the same URL and perform different operation
+    -ex. /api/actions/add, /api/actions/remove --> /api/actions, handles both add and remove requests
+
 1. Describe tooling used to manually test the correctness of an API.
+
+  - one tool used to manually test correctness of an API is postman, where we test individual endpoints and try to get it to work successfully, successfully produce the correct error, etc
 
 You are expected to be able to answer questions in these areas. Your responses contribute to your Sprint Challenge grade.
 
