@@ -29,8 +29,16 @@ router.get('/', (req ,res) => {
 //     })
 // })
 
+function validateRequest(req, res, next) {
+  if(req.body.project_id && req.body.description && req.body.notes) {
+    next();
+  } else {
+    res.status(401).json({ error: 'Please fill out the project_id, description, and notes of the action' });
+  }
+}
+
 // POST request -- use 4 when running tests
-router.post('/', (req, res) => {
+router.post('/', validateRequest, (req, res) => {
   // if(!req.body.description) {
   //   res.status(401).json({ error: 'Please fill out the description of the action' });
   // }    
@@ -64,7 +72,7 @@ router.delete('/:id', (req, res) => {
 })
 
 //PUT request
-router.put('/:id', (req, res) => {
+router.put('/:id', validateRequest, (req, res) => {
   // middleware to determine if valid update 
 
   Actions.update(req.params.id, req.body)

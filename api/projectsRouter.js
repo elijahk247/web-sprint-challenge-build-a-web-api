@@ -30,8 +30,16 @@ router.get('/:id/actions', (req, res) => {
 })
 
 
+function validateRequest(req, res, next) {
+  if(req.body.name && req.body.description) {
+    next();
+  } else {
+    res.status(401).json({ error: 'Please fill out the name and description of the action' });
+  }
+}
+
 // POST request
-router.post('/', (req, res) => {
+router.post('/', validateRequest, (req, res) => {
   // middleware to check for name and description
   // res.status(401).json({ error: 'Please provide a name and description });
 
@@ -62,7 +70,7 @@ router.delete('/:id', (req, res) => {
 })
 
 // PUT request 
-router.put('/:id', (req, res) => {
+router.put('/:id', validateRequest, (req, res) => {
   // middleware to validate update has name and description
   // res.status(400).json({ error: 'Please enter a name and description });
 
