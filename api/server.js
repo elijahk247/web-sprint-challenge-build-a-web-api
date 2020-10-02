@@ -9,7 +9,7 @@ const projectsRouter = require('./projectsRouter.js');
 
 // endpoints
 server.use('/api/actions', actionsRouter);
-server.use('/api/products', projectsRouter);
+server.use('/api/projects', projectsRouter);
 
 // landing 
 server.get('/', (req, res) => {

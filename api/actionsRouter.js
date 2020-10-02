@@ -14,20 +14,20 @@ router.get('/', (req ,res) => {
     })
 })
 
-// GET request by id
-router.get('/:id', (req ,res) => {
-  Actions.get(req.id)
-    .then(action => {
-      if(action != 0) {
-        res.status(200).json(action);
-      } else {
-        res.status(404).json({ message: 'Action at given index does not exist' });
-      }
-    })
-    .catch(err => {
-      res.status(500).json({ error: 'Error retrieving action' });
-    })
-})
+// // GET request by id
+// router.get('/:id', (req ,res) => {
+//   Actions.get(req.id)
+//     .then(action => {
+//       if(action != 0) {
+//         res.status(200).json(action);
+//       } else {
+//         res.status(404).json({ message: 'Action at given index does not exist' });
+//       }
+//     })
+//     .catch(err => {
+//       res.status(500).json({ error: 'Error retrieving action' });
+//     })
+// })
 
 // POST request -- use 4 when running tests
 router.post('/', (req, res) => {
