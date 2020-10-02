@@ -39,19 +39,21 @@ router.post('/', (req, res) => {
 
   Actions.insert(req.body)
     .then(action => {
-      res.status(201).json({ message: 'Action succesfully created' });
+      res.status(201).json(req.body);
     })
     .catch(err => {
       res.status(500).json({ error: 'Could not create the action' });
     })
 })
 
+const deleteCounter = 0;
 // DELETE request
 router.delete('/:id', (req, res) => {
   Actions.remove(req.params.id)
     .then(action => {
       if(action !=0) {
-        res.status(200).json({ message: 'Successfully removed '});
+        deleteCounter += 1;
+        res.status(200).json({ amountRemoved: deleteCounter });
       } else {
         res.status(404).json( {message: 'Action at given index does not exist' });
       }
@@ -68,7 +70,7 @@ router.put('/:id', (req, res) => {
   Actions.update(req.params.id, req.body)
     .then(action => {
       if(action != 0) {
-        res.status(200).json({ message: 'Successfully updated' });
+        res.status(200).json(req.body);
       } else {
         res.status(404).json({ message: 'Could not find action at given index' });
       }

@@ -14,6 +14,22 @@ router.get('/', (req, res) => {
     })
 })
 
+// GET request '/:id/actions
+router.get('/:id/actions', (req, res) => {
+  Projects.getProjectActions(req.params.id)
+    .then(project => {
+      if(project != 0) {
+        res.status(200).json(project);
+      } else {
+        res.status(404).json({ message: 'No projects at given index' });
+      }
+    })
+    .catch(err => {
+      res.status(500).json({ error: 'Could not retrieve the projects' });
+    })    
+})
+
+
 // POST request
 router.post('/', (req, res) => {
   // middleware to check for name and description
@@ -21,25 +37,45 @@ router.post('/', (req, res) => {
 
   Projects.insert(req.body)
     .then(project => {
-      res.status(201),json({ message: 'Created a new project' });
+      res.status(201),json(req.body);
     })
     .catch(err => {
       res.status(500).json({ error: 'Could not create a new project' });
     }) 
 })
 
+const deleteCounter = 0;
 // DELETE request
 router.delete('/:id', (req, res) => {
   Projects.remove(req.params.id)
     .then(project => {
       if(project != 0) {
-        res.status(200).json({ message: 'Successfully removed' });
+        deleteCounter += 1;
+        res.status(200).json({ amountDeleted: deleteCounter });
       } else {
         res.status(404).json({ message: 'Could not find project at given index' });
       }
     })
     .catch(err => {
       res.status(500).json({ error: 'Could not remove the project' });
+    })
+})
+
+// PUT request 
+router.put('/:id', (req, res) => {
+  // middleware to validate update has name and description
+  // res.status(400).json({ error: 'Please enter a name and description });
+
+  Projects.update(req.params.id)
+    .then(project => {
+      if(project != 0) {
+        res.status(200).json(req.body);
+      } else {
+        res.status(404).json({ message: 'Could not find the project at given index' });
+      }
+    })
+    .catch(err => {
+      res.status(500).json({ error: 'Could not update the project' });
     })
 })
 
