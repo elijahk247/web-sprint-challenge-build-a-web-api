@@ -30,7 +30,7 @@ router.get('/', (req ,res) => {
 // })
 
 function validateRequest(req, res, next) {
-  if(req.body.project_id && req.body.description && req.body.notes) {
+  if(req.params.body.project_id && req.params.body.description && req.params.body.notes) {
     next();
   } else {
     res.status(401).json({ error: 'Please fill out the project_id, description, and notes of the action' });

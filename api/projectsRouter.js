@@ -31,7 +31,7 @@ router.get('/:id/actions', (req, res) => {
 
 
 function validateRequest(req, res, next) {
-  if(req.body.name && req.body.description) {
+  if(req.params.body.name && req.params.body.description) {
     next();
   } else {
     res.status(401).json({ error: 'Please fill out the name and description of the action' });
